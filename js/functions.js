@@ -21,18 +21,36 @@ console.log(checkpalindrom('Лёша на полке клопа нашёл '));
 
 
 function getNumber(stringOrNumber) {
-  const numberFromString = [];
-  const result = String(stringOrNumber).replaceAll(' ','').split('');
+  const numbers = [];
+  const result = stringOrNumber.toString().replaceAll(' ','').split('');
   for (let i = 0; i < result.length; i++) {
     if (!isNaN(result[i])) {
-      numberFromString.push(result[i]);
+      numbers.push(result[i]);
     }
   }
-  return (numberFromString.join(''));
+  if (numbers.length) {
+    return numbers.join('');
+  }
+  return NaN;
 }
 
-console.log(getNumber('2023 год'));
-console.log(getNumber('1 кефир, 0.5 батона'));
-console.log(getNumber('2023 год'));
-console.log(getNumber('а я томат'));
-console.log(getNumber(-1));
+console.log(`результат: ${getNumber('2023 год')}`);
+console.log(`результат: ${getNumber('1 кефир, 0.5 батона')}`);
+console.log(`результат: ${getNumber('а я томат')}`);
+console.log(`результат: ${getNumber(-1)}`);
+
+// тернарный оператор
+function getNumber2(stringOrNumber) {
+  const numbers = [];
+  const result = stringOrNumber.toString().replaceAll(' ','').split('');
+  for (let i = 0; i < result.length; i++) {
+    !isNaN(result[i]) && numbers.push(result[i]);
+  }
+  return numbers.length ? numbers.join('') : NaN;
+}
+
+console.log(`результат: ${getNumber2('2023 год')}`);
+console.log(`результат: ${getNumber2('1 кефир, 0.5 батона')}`);
+console.log(`результат: ${getNumber2('а я томат')}`);
+console.log(`результат: ${getNumber2(-1)}`);
+console.log(`результат: ${getNumber2(1.5)}`);
