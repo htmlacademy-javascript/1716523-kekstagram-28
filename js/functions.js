@@ -46,16 +46,16 @@ getNumber('2023 год');
 // console.log(`результат: ${getNumber('агент 007')}`);
 
 // тернарный оператор
-function getNumber2(stringOrNumber) {
-  const numbers = [];
-  const result = stringOrNumber.toString().replaceAll(' ','').split('');
-  for (let i = 0; i < result.length; i++) {
-    !isNaN(result[i]) && numbers.push(result[i]);
-  }
-  return numbers.length ? parseInt(numbers.join(''), 10) : NaN;
-}
+// function getNumber2(stringOrNumber) {
+//   const numbers = [];
+//   const result = stringOrNumber.toString().replaceAll(' ','').split('');
+//   for (let i = 0; i < result.length; i++) {
+//     !isNaN(result[i]) && numbers.push(result[i]);
+//   }
+//   return numbers.length ? parseInt(numbers.join(''), 10) : NaN;
+// }
 
-getNumber2('2023 год');
+// getNumber2('2023 год');
 // console.log(`результат: ${getNumber2('2023 год')}`);
 // console.log(`результат: ${getNumber2('1 кефир, 0.5 батона')}`);
 // console.log(`результат: ${getNumber2('а я томат')}`);
