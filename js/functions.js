@@ -1,18 +1,22 @@
-// function checkStringLength (someString, someLength) {
-//   if (someString.length >= someLength) {
-//     return true;
-//   }
-// }
+function checkStringLength (someString, someLength) {
+  if (someString.length >= someLength) {
+    return true;
+  }
+}
 
-// function checkpalindrom(someString) {
-//   const result = someString.toLowerCase().replaceAll(' ', '').split('');
-//   console.log(result);
-//   if (result.join() === (result.reverse()).join()) {
-//     console.log(true);
-//   } else {
-//     return false;
-//   }
-// }
+checkStringLength ('hjjhdvhcbsdkgkjbkbdc', 20);
+
+function checkpalindrom(someString) {
+  const result = someString.toLowerCase().replaceAll(' ', '').split('');
+  // console.log(result);
+  if (result.join() === (result.reverse()).join()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+checkpalindrom('Лёша на полке клопа нашёл ');
 
 // console.log(checkpalindrom('aaa'));
 // console.log(checkpalindrom('довод'));
@@ -20,20 +24,21 @@
 // console.log(checkpalindrom('Лёша на полке клопа нашёл '));
 
 
-// function getNumber(stringOrNumber) {
-//   const numbers = [];
-//   const result = stringOrNumber.toString().replaceAll(' ','').split('');
-//   for (let i = 0; i < result.length; i++) {
-//     if (!isNaN(result[i])) {
-//       numbers.push(result[i]);
-//     }
-//   }
-//   if (numbers.length) {
-//     return parseInt(numbers.join(''), 10);
-//   }
-//   return NaN;
-// }
+function getNumber(stringOrNumber) {
+  const numbers = [];
+  const result = stringOrNumber.toString().replaceAll(' ','').split('');
+  for (let i = 0; i < result.length; i++) {
+    if (!isNaN(result[i])) {
+      numbers.push(result[i]);
+    }
+  }
+  if (numbers.length) {
+    return parseInt(numbers.join(''), 10);
+  }
+  return NaN;
+}
 
+getNumber('2023 год');
 // console.log(`результат: ${getNumber('2023 год')}`);
 // console.log(`результат: ${getNumber('1 кефир, 0.5 батона')}`);
 // console.log(`результат: ${getNumber('а я томат')}`);
@@ -41,36 +46,22 @@
 // console.log(`результат: ${getNumber('агент 007')}`);
 
 // тернарный оператор
-// function getNumber2(stringOrNumber) {
-//   const numbers = [];
-//   const result = stringOrNumber.toString().replaceAll(' ','').split('');
-//   for (let i = 0; i < result.length; i++) {
-//     !isNaN(result[i]) && numbers.push(result[i]);
-//   }
-//   return numbers.length ? parseInt(numbers.join(''), 10) : NaN;
-// }
+function getNumber2(stringOrNumber) {
+  const numbers = [];
+  const result = stringOrNumber.toString().replaceAll(' ','').split('');
+  for (let i = 0; i < result.length; i++) {
+    !isNaN(result[i]) && numbers.push(result[i]);
+  }
+  return numbers.length ? parseInt(numbers.join(''), 10) : NaN;
+}
 
+getNumber2('2023 год');
 // console.log(`результат: ${getNumber2('2023 год')}`);
 // console.log(`результат: ${getNumber2('1 кефир, 0.5 батона')}`);
 // console.log(`результат: ${getNumber2('а я томат')}`);
 // console.log(`результат: ${getNumber2(-1)}`);
 // console.log(`результат: ${getNumber2(1.5)}`);
 // console.log(`результат: ${getNumber2('агент 007')}`);
-
-//  Добавочный символ использован один раз
-// имя_функции('1', 2, '0');       '01'
-
-//  Добавочный символ использован три раза
-// имя_функции('1', 4, '0');       '0001'
-
-//  Добавочные символы обрезаны с конца
-// имя_функции('q', 4, 'werty');   'werq'
-
-//  Добавочные символы использованы полтора раза
-// имя_функции('q', 4, 'we');      'wweq'
-
-//  Добавочные символы не использованы, исходная строка не изменена
-// имя_функции('qwerty', 4, '0');  'qwerty'
 
 
 function addCharToString (someString, charLimit, charToAdd) {
@@ -91,7 +82,7 @@ function addCharToString (someString, charLimit, charToAdd) {
   } else {
     newStr = someString;
   }
-  console.log(newStr);
+  return newStr;
 }
 addCharToString('q', 4, 'we');
 // Добавочный символ использован один раз
