@@ -46,8 +46,6 @@ getNumber('2023 год');
 
 // getNumber2('2023 год');
 
-
-
 function addCharToString (someString, charLimit, charToAdd) {
   let newStr;
   if (someString.length < charLimit) {
