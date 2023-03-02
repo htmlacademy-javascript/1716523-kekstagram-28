@@ -43,8 +43,7 @@ function createUniqId (min, max) {
   return function() {
     while(uniqIdArr.length < max) {
       const currentValue = getRandomInteger(min, max);
-      if (uniqIdArr.includes(currentValue)){}
-      else {
+      if (!uniqIdArr.includes(currentValue)) {
         uniqIdArr.push(currentValue);
         return currentValue;
       }
@@ -83,7 +82,7 @@ function createPhotoObj() {
 }
 
 const photoObjArr = function() {
-  console.log(Array.from({length: 25}, createPhotoObj));
+  return Array.from({length: 25}, createPhotoObj);
 };
 
 photoObjArr();
