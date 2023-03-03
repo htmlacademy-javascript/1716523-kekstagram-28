@@ -2,6 +2,8 @@
 const PHOTO_ID_COUNT = 25;
 const MIN_LIKES_COUNT = 15;
 const MAX_LIKES_COUNT = 200;
+const MIN_AVATAR_NUMBER = 1;
+const MAX_AVATAR_NUMBER = 6;
 const PHOTO_DESCRIPTIONS = [
   'я на отдыхе',
   'я на работе',
@@ -61,28 +63,28 @@ function createUniqIdFromGenerator () {
 
 const commentId = createUniqIdFromGenerator();
 
-function createCommentObj() {
+function createCommentsDescription() {
   return{
     id: commentId(),
-    avatar: `img/avatar-${getRandomInteger(0, 6)}.svg`,
+    avatar: `img/avatar-${getRandomInteger(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`,
     message: MESSAGES_ARR[getRandomInteger(0, MESSAGES_ARR.length - 1)],
     name: NAMES[getRandomInteger(0, NAMES.length - 1)],
   };
 }
 
-function createPhotoObj() {
+function createPhotoesDescription() {
   const id = photoId();
   return {
     id,
     url: `photos/${id}.jpg`,
     description: PHOTO_DESCRIPTIONS[getRandomInteger(0, PHOTO_DESCRIPTIONS.length - 1)],
     likes: getRandomInteger(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
-    comments: Array.from({length: getRandomInteger(1, 5)}, createCommentObj),
+    comments: Array.from({length: getRandomInteger(1, 5)}, createCommentsDescription),
   };
 }
 
-const photoObjArr = function() {
-  return Array.from({length: 25}, createPhotoObj);
+const photoesDescription = function() {
+  return Array.from({length: PHOTO_ID_COUNT}, createPhotoesDescription);
 };
 
-photoObjArr();
+photoesDescription();
