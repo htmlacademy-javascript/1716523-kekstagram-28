@@ -1,16 +1,4 @@
-import { photoesDescription } from './data.js';
+import { addsPicturesTemplates } from './random-user-pictures.js';
 
-const picturesContainer = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture')
-  .content
-  .querySelector('.picture');
+addsPicturesTemplates();
 
-const pictures = photoesDescription();
-
-pictures.forEach((picture) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  const img = pictureElement.querySelector('.picture__img');
-  img.src = picture.url;
-  console.log(picture);
-  picturesContainer.appendChild(pictureElement);
-});
