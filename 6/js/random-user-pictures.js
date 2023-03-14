@@ -10,14 +10,11 @@ function addsPicturesTemplates() {
 
   const pictures = photoesDescription();
 
-  pictures.forEach((picture) => {
+  pictures.forEach(({url, likes, comments}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
-    const img = pictureElement.querySelector('.picture__img');
-    img.src = picture.url;
-    const likesQuantity = pictureElement.querySelector('.picture__likes');
-    likesQuantity.textContent = picture.likes;
-    const commentQuantity = pictureElement.querySelector('.picture__comments');
-    commentQuantity.textContent = picture.comments.length;
+    pictureElement.querySelector('.picture__img').src = url;
+    pictureElement.querySelector('.picture__likes').textContent = likes;
+    pictureElement.querySelector('.picture__comments').textContent = comments.length;
     picturesFragment.appendChild(pictureElement);
   });
 
