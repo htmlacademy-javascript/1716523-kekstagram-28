@@ -1,3 +1,4 @@
-import { photoesDescription } from './data.js';
+import { addsPicturesTemplates } from './random-user-pictures.js';
 
-photoesDescription();
+addsPicturesTemplates();
+
