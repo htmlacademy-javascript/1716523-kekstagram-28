@@ -30,4 +30,8 @@ function createUniqIdFromGenerator () {
 
 const commentId = createUniqIdFromGenerator();
 
-export {getRandomInteger, photoId, commentId};
+const isEscapeKey = (evt) => {
+  return evt.key === 'Escape';
+}
+
+export {getRandomInteger, photoId, commentId, isEscapeKey};

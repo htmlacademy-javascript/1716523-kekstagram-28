@@ -1,11 +1,12 @@
 import { addsPicturesTemplates } from './random-user-pictures.js';
 import { opensBigPictureModal } from './big-picture-modal-open.js';
-import { closeBigPicture } from './big-picure-modal-close.js';
+import { closeBigPicture, closeBigPictureByKey } from './big-picure-modal-close.js';
 
 
 addsPicturesTemplates();
 opensBigPictureModal();
 closeBigPicture();
+closeBigPictureByKey();
 
 // const bigPictureContainer = document.querySelector('.big-picture');
 

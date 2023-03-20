@@ -17,7 +17,7 @@ function createPhotoesDescription() {
     url: `photos/${id}.jpg`,
     description: PHOTO_DESCRIPTIONS[getRandomInteger(0, PHOTO_DESCRIPTIONS.length - 1)],
     likes: getRandomInteger(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
-    comments: Array.from({length: getRandomInteger(1, 10)}, createCommentsDescription),
+    comments: Array.from({length: getRandomInteger(1, 20)}, createCommentsDescription),
   };
 }
 
