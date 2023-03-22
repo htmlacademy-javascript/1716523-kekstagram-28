@@ -28,10 +28,19 @@ function createUniqIdFromGenerator () {
   };
 }
 
-const commentId = createUniqIdFromGenerator();
-
-const isEscapeKey = (evt) => {
-  return evt.key === 'Escape';
+function createListItem(avatar, name, message) {
+  return `<li class="social__comment">
+      <img
+          class="social__picture"
+          src="${avatar}"
+          alt="${name}"
+          width="35" height="35">
+      <p class="social__text">${message}</p>
+  </li>`;
 }
 
-export {getRandomInteger, photoId, commentId, isEscapeKey};
+const commentId = createUniqIdFromGenerator();
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, photoId, commentId, isEscapeKey, createListItem};

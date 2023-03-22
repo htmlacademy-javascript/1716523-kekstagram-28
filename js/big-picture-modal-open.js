@@ -1,5 +1,6 @@
 import { pictureObjects } from './random-user-pictures.js';
 import { COMMENT_PER_PORTION } from './setup.js';
+import { createListItem } from './util.js';
 
 
 // TO DO:
@@ -13,7 +14,6 @@ const picturePreview = document.querySelector('.big-picture__preview');
 const body = document.querySelector('body');
 
 const bigPictureModal = picturePreview.parentElement;
-console.log(document.querySelector('.big-picture__preview'));
 const bigPictureImg = picturePreview.children[0].children[0];
 const socialCaption = bigPictureModal.querySelector('.social__caption');
 const likesCount = bigPictureModal.querySelector('.likes-count');
@@ -22,6 +22,7 @@ const socialCommentList = bigPictureModal.querySelector('.social__comments');
 const socialCommentsCount = bigPictureModal.querySelector('.social__comment-count');
 const picturesContainer = document.querySelector('.pictures');
 const commentLoader = document.querySelector('.comments-loader');
+const result = [];
 
 function opensBigPictureModal() {
   picturesContainer.addEventListener('click', (evt) => {
@@ -32,12 +33,14 @@ function opensBigPictureModal() {
       likesCount.textContent = pictureObj.likes;
       commentsCount.textContent = pictureObj.comments.length;
       socialCommentList.innerHTML = '';
-      insertCommentsList(pictureObj.comments);
       if (pictureObj.comments.length <= COMMENT_PER_PORTION) {
         commentLoader.classList.add('hidden');
       } else {
         commentLoader.classList.remove('hidden');
       }
+      renderComments(pictureObj.comments);
+      onCommentLoader(result, pictureObj.comments);
+
       socialCommentsCount.textContent = countCommentsQuantity(pictureObj.comments.length);
       bigPictureModal.classList.remove('hidden');
       body.classList.add('.modal-open');
@@ -45,100 +48,74 @@ function opensBigPictureModal() {
   });
 }
 
-function createListItem(avatar, name, message) {
-  return `<li class="social__comment">
-      <img
-          class="social__picture"
-          src="${avatar}"
-          alt="${name}"
-          width="35" height="35">
-      <p class="social__text">${message}</p>
-  </li>`;
-}
-
-function countCommentsQuantity (commentsLength) {
+function countCommentsQuantity (commentsLength, commentsLoaded) {
   if (commentsLength >= COMMENT_PER_PORTION) {
-    return `${COMMENT_PER_PORTION} из ${commentsLength} комментариев`;
+    return `${commentsLoaded} из ${commentsLength} комментариев`;
   }
   return `${commentsLength} из ${commentsLength} комментариев`;
 }
 
-function insertCommentsList(comments) {
+// function renderComments(comments) {
+//   let result = '';
+//   if (comments.length > COMMENT_PER_PORTION) {
+//     for (let i = 0; i < commentShown; i++) {
+//       result += createListItem(comments[i].avatar, comments[i].name, comments[i].message);
+//     }
+//   } else {
+//     for (let i = 0; i < comments.length; i++) {
+//       result += createListItem(comments[i].avatar, comments[i].name, comments[i].message);
+//     }
+//   }
+//   socialCommentList.insertAdjacentHTML('beforeend', result);
+//   console.log(socialCommentList, 'zzz');
+// }
 
-  if (comments.length > 5) {
-    let result = '';
-    for (let i = 0; i < COMMENT_PER_PORTION; i++) {
-      result += createListItem(comments[i].avatar, comments[i].name, comments[i].message);
+function renderComments(comments) {
+
+  for (let i = 0; i < comments.length; i++) {
+    result.push(createListItem(comments[i].avatar, comments[i].name, comments[i].message));
+  }
+  if (comments.length <= COMMENT_PER_PORTION) {
+    commentLoader.classList.add('hidden');
+    for (let i = 0; i < comments.length; i++){
+      socialCommentList.insertAdjacentHTML('beforeend', result[i]);
     }
-    socialCommentList.insertAdjacentHTML('beforeend', result);
-    // socialCommentsCount.textContent = `${commentShown} из ${comments.length} комментариев`;
-    // commentLoader.addEventListener('click', () => {
-    //   socialCommentList.innerHTML = '';
-    //   commentShown += COMMENT_PER_PORTION;
-    //   if (commentShown >= comments.length) {
-    //     commentShown = comments.length;
-    //     commentLoader.classList.add('hidden');
-    //   }
-    //   console.log(commentShown, 'qqqqq');
-    //   for (let i = 0; i < commentShown; i++) {
-    //     const socialCommentListItem = `<li class="social__comment">
-    //     <img
-    //         class="social__picture"
-    //         src="${comments[i].avatar}"
-    //         alt="${comments[i].name}"
-    //         width="35" height="35">
-    //     <p class="social__text">${comments[i].message}</p>
-    // </li>`;
-    //     socialCommentList.insertAdjacentHTML('beforeend', socialCommentListItem);
-    //   }
-    //   socialCommentsCount.textContent = `${commentShown} из ${comments.length} комментариев`;
-    // });
   } else {
-    let result = '';
-    for (let i = 0; i < comments.length; i++) {
-      result += createListItem(comments[i].avatar, comments[i].name, comments[i].message);
+    for (let i = 0; i < COMMENT_PER_PORTION; i++){
+      socialCommentList.insertAdjacentHTML('beforeend', result[i]);
     }
-    socialCommentList.insertAdjacentHTML('beforeend', result);
+    console.log(result);
   }
 }
 
-// function insertCommentsList(comments) {
+function onCommentLoader (listItemArr, comments) {
+  let commentsShown = COMMENT_PER_PORTION;
+  commentLoader.addEventListener('click', () => {
+    socialCommentList.innerHTML = '';
+    commentsShown += COMMENT_PER_PORTION;
+    if (commentsShown >= comments.length) {
+      commentsShown = comments.length;
+      commentLoader.classList.add('hidden');
+    }
+    for (let i = 0; i < commentsShown; i++) {
+      socialCommentList.insertAdjacentHTML('beforeend', listItemArr[i]);
+    }
+  });
+  return commentsShown;
+}
 
-//   if (comments.length > 5) {
-//     commentLoader.addEventListener('click', () => {
-//       socialCommentList.innerHTML = '';
-//       commentShown += COMMENT_PER_PORTION;
-//       console.log(commentShown, 'qqqqq');
-//       for (let i = 0; i < commentShown; i++) {
-//         const socialCommentListItem = `<li class="social__comment">
-//         <img
-//             class="social__picture"
-//             src="${comments[i].avatar}"
-//             alt="${comments[i].name}"
-//             width="35" height="35">
-//         <p class="social__text">${comments[i].message}</p>
-//     </li>`;
-//         socialCommentList.insertAdjacentHTML('beforeend', socialCommentListItem);
-//       }
-//     });
-//   }
-
-//   console.log(comments);
-//   console.log(commentShown, 'zzzzz');
-// }
-
-// function opensBigPictureByKey() {
-//   const bigPictureOpenElements = document.querySelectorAll('.picture__img');
-//   bigPictureOpenElements.forEach((picture) => {
-//     picture.addEventListener('keydown', (evt) => {
-//       if (evt.key === 'Enter') {
-//         evt.preventDefault();
-//         const bigPictureImg = bigPictureModal.querySelector('img');
-//         bigPictureImg.src = picture.src;
-//         bigPictureModal.classList.remove('hidden');
-//       }
-//     });
+// function onCommentLoader (comments) {
+//   commentLoader.addEventListener('click', () => {
+//     commentShown += COMMENT_PER_PORTION;
+//     if (commentShown >= comments.length) {
+//       commentShown = comments.length;
+//       commentLoader.classList.add('hidden');
+//     }
+//     socialCommentList.innerHTML = '';
+//     renderComments(comments);
+//     socialCommentsCount.textContent = countCommentsQuantity(comments.length);
+//     console.log(socialCommentList.length, 'qqq');
 //   });
 // }
 
-export { opensBigPictureModal, bigPictureModal, body };
+export { opensBigPictureModal, bigPictureModal, body};
