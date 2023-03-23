@@ -27,7 +27,6 @@ const result = [];
 function opensBigPictureModal() {
   result.length = 0;
   picturesContainer.addEventListener('click', (evt) => {
-    commentLoader.removeEventListener('click', onCommentsLoad);
     if (evt.target.classList.contains('picture__img')) {
       const pictureObj = pictureObjects.find((item) => item.id === +evt.target.parentNode.dataset.pictureElementId);
       bigPictureImg.src = pictureObj.url;
@@ -41,6 +40,7 @@ function opensBigPictureModal() {
         commentLoader.classList.remove('hidden');
       }
       renderComments(pictureObj.comments);
+      // commentLoader.onclick (pictureObj.comments);
       initCommentLoader(pictureObj.comments);
       bigPictureModal.classList.remove('hidden');
       body.classList.add('.modal-open');
@@ -81,20 +81,38 @@ function renderComments(comments) {
 //     socialCommentList.insertAdjacentHTML('beforeend', loadedComments);
 // }
 
+// commentLoader.onclick = function (comments) {
+//   console.log(comments);
+//   const loadedComments = comments.slice(socialCommentList.children.length, socialCommentList.children.length + 5)
+//     .map(({ avatar, message, name }) => createListItem(avatar, name, message)).reduce((prev, cur) => prev + cur, '');
+//   socialCommentList.insertAdjacentHTML('beforeend', loadedComments);
+// };
+
+// function initCommentLoader (comments) {
+//   commentLoader.addEventListener('click', () => {
+//     const loadedComments = comments.slice(socialCommentList.children.length, socialCommentList.children.length + 5)
+//       .map(({ avatar, message, name }) => createListItem(avatar, name, message)).reduce((prev, cur) => prev + cur, '');
+//     socialCommentList.insertAdjacentHTML('beforeend', loadedComments);
+//     socialCommentsCount.textContent = countCommentsQuantity(comments.length);
+//     if (socialCommentList.children.length >= comments.length) {
+//       console.log(socialCommentList.children.length);
+//       commentLoader.classList.add('hidden');
+
+//     }
+//   });
+// }
 function initCommentLoader (comments) {
-  commentLoader.addEventListener('click', function onCommentsLoad () {
+  commentLoader.onclick = () => {
     const loadedComments = comments.slice(socialCommentList.children.length, socialCommentList.children.length + 5)
-    .map(({ avatar, message, name }) => createListItem(avatar, name, message)).reduce((prev, cur) => prev + cur, '');
+      .map(({ avatar, message, name }) => createListItem(avatar, name, message)).reduce((prev, cur) => prev + cur, '');
     socialCommentList.insertAdjacentHTML('beforeend', loadedComments);
-  }
+    socialCommentsCount.textContent = countCommentsQuantity(comments.length);
+    if (socialCommentList.children.length >= comments.length) {
+      console.log(socialCommentList.children.length);
+      commentLoader.classList.add('hidden');
 
-    // socialCommentsCount.textContent = countCommentsQuantity(comments.length);
-    // if (socialCommentList.children.length >= comments.length) {
-    //   console.log(socialCommentList.children.length);
-    //   commentLoader.classList.add('hidden');
-
-    // }
-  );
+    }
+  };
 }
 
 // function initCommentLoader (comments) {
