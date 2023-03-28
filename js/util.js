@@ -44,3 +44,4 @@ const commentId = createUniqIdFromGenerator();
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 export {getRandomInteger, photoId, commentId, isEscapeKey, createListItem};
+
