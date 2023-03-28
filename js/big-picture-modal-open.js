@@ -19,10 +19,10 @@ const listItems = [];
 let comments = [];
 
 function opensBigPictureModal() {
-  listItems.length = 0; // TODO rename result
+  listItems.length = 0;
   picturesContainer.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('picture__img')) {
-      const pictures = pictureObjects.find((item) => item.id === +evt.target.parentNode.dataset.pictureElementId); // TODO rename
+      const pictures = pictureObjects.find((item) => item.id === +evt.target.parentNode.dataset.pictureElementId);
       bigPictureImg.src = pictures.url;
       socialCaption.textContent = pictures.description;
       likesCount.textContent = pictures.likes;
