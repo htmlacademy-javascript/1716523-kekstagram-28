@@ -8,8 +8,6 @@ addsPicturesTemplates();
 opensBigPictureModal();
 closeBigPicture();
 closeBigPictureByKey();
-uploadButton.oninput();
-closeButton.onclick();
 
 // const bigPictureContainer = document.querySelector('.big-picture');
 
