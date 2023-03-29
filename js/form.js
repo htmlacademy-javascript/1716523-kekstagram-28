@@ -7,6 +7,9 @@ const closeButton = document.querySelector('#upload-cancel');
 const commentField = document.querySelector('.text__description');
 const form = document.querySelector('.img-upload__form');
 const hashTagField = document.querySelector('.text__hashtags');
+const MAX_HASHTAG_QUANTITY = 5;
+const ERROR_TEXT = 'ПОЛЕ ЗАПОЛНЕНО НЕВЕРНО';
+const hashTagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const pristine = new Pristine (form, {
   classTo: 'img-upload__field-wrapper',
@@ -14,35 +17,37 @@ const pristine = new Pristine (form, {
   errorTextClass: 'img-upload__field-wrapper__error',
 });
 
-// const getUniqueTags = (tags) => {
-//   const lowerCaseTags = tags.map((tag) => {
-//     tag.toLowerCase();
-//   });
-//   return lowerCaseTags.length === new Set(lowerCaseTags).size;
-// };
+const isUniqueTags = (tags) => {
+  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+  return lowerCaseTags.length === new Set(lowerCaseTags).size;
+};
+
+const isValidTag = function (tag) {
+  return hashTagRegExp.test(tag);
+};
 
 function validateTags (value) {
   const tags = value.trim().split(' ').filter((tag) => tag.trim().length);
-  console.log(tags, 'xxx');
+  console.log(isUniqueTags(tags), 111);
+  console.log(tags.length, 222);
+  console.log(tags.every(isValidTag));
+  return isUniqueTags(tags) && tags.length <= MAX_HASHTAG_QUANTITY && tags.every(isValidTag);
 }
-
 
 const showImageOverlay = function () {
   imageOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
-  console.log(hashTagField.value);
-  hashTagField.addEventListener('input', () => {
-    validateTags(hashTagField.value);
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      imageOverlay.classList.add('hidden');
-      body.classList.remove('modal-open');
-    }
-  });
 };
+
+document.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    imageOverlay.classList.add('hidden');
+    body.classList.remove('modal-open');
+  }
+});
+
+pristine.addValidator(hashTagField, validateTags, ERROR_TEXT);
 
 const closeImageOverlay = function () {
   imageOverlay.classList.add('hidden');
@@ -51,7 +56,7 @@ const closeImageOverlay = function () {
   // form.reset();
   // resetScale();
   // resetEffects();
-  // pristine.reset();
+  pristine.reset();
 };
 
 // function stopEvtPropagation (field1) {
