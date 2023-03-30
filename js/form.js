@@ -28,9 +28,6 @@ const isValidTag = function (tag) {
 
 function validateTags (value) {
   const tags = value.trim().split(' ').filter((tag) => tag.trim().length);
-  console.log(isUniqueTags(tags), 111);
-  console.log(tags.length, 222);
-  console.log(tags.every(isValidTag));
   return isUniqueTags(tags) && tags.length <= MAX_HASHTAG_QUANTITY && tags.every(isValidTag);
 }
 
@@ -46,8 +43,14 @@ document.addEventListener('keydown', (evt) => {
     body.classList.remove('modal-open');
   }
 });
-
 pristine.addValidator(hashTagField, validateTags, ERROR_TEXT);
+
+form.addEventListener('submit', (evt) => {
+  if (!pristine.validate(hashTagField) || !pristine.validate(commentField)) {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+});
 
 const closeImageOverlay = function () {
   imageOverlay.classList.add('hidden');
