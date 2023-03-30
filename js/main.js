@@ -2,7 +2,7 @@ import { addsPicturesTemplates } from './random-user-pictures.js';
 import { opensBigPictureModal } from './big-picture-modal-open.js';
 import { closeBigPicture, closeBigPictureByKey } from './big-picure-modal-close.js';
 import { uploadButton, closeButton } from './form.js';
-
+import { image } from './scale.js';
 
 addsPicturesTemplates();
 opensBigPictureModal();
