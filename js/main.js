@@ -3,6 +3,7 @@ import { opensBigPictureModal } from './big-picture-modal-open.js';
 import { closeBigPicture, closeBigPictureByKey } from './big-picure-modal-close.js';
 import { uploadButton, closeButton } from './form.js';
 import { image } from './scale.js';
+import { slider } from './slider.js';
 
 addsPicturesTemplates();
 opensBigPictureModal();

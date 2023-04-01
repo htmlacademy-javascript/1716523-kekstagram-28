@@ -55,8 +55,8 @@ form.addEventListener('submit', (evt) => {
 const closeImageOverlay = function () {
   imageOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
-  // uploadButton.removeEventListener('change', showImageOverlay);
-  // form.reset();
+  uploadButton.removeEventListener('change', showImageOverlay);
+  form.reset();
   // resetScale();
   // resetEffects();
   pristine.reset();
@@ -85,7 +85,7 @@ hashTagField.addEventListener('keydown', (evt) => {
 });
 
 closeButton.addEventListener('click', closeImageOverlay);
-uploadButton.addEventListener('change', showImageOverlay);
+uploadButton.addEventListener('input', showImageOverlay);
 
 export {uploadButton, closeButton};
 
