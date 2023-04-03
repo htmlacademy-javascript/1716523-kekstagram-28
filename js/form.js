@@ -1,7 +1,6 @@
 import { body } from './big-picture-modal-open.js';
 import { isEscapeKey } from './util.js';
 import { sliderBackground, image, scale, onScaleChange } from './slider.js';
-// import { image } from './scale.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const imageOverlay = document.querySelector('.img-upload__overlay');
