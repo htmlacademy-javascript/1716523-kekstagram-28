@@ -1,91 +1,39 @@
-import { image } from './scale.js';
+
+import { effects, imageDefaultSize, imageSizeStep } from './setup.js';
 
 const slider = document.querySelector('.effect-level__slider');
 const sliderBackground = document.querySelector('.img-upload__effect-level');
 const effectLevelInput = document.querySelector('.effect-level__value');
 const effectsList = document.querySelector('.effects__list');
-
-const chrome = {
-  sliderSettings: {
-    range: {
-      min: 0,
-      max: 1
-    },
-    start: 1,
-    step: 0.1,
-  },
-  filter: 'grayscale',
-  imageClass: 'chrome',
-};
-
-const sepia = {
-  sliderSettings: {
-    range: {
-      min: 0,
-      max: 1,
-    },
-    start: 1,
-    step: 0.1,
-  },
-  filter: 'sepia',
-  imageClass: 'sepia',
-};
-
-const marvin = {
-  sliderSettings: {
-    range: {
-      min: 0,
-      max: 100,
-    },
-    start: 100,
-    step: 1,
-  },
-  filter: 'invert',
-  imageClass: 'marvin',
-};
-
-const phobos = {
-  sliderSettings: {
-    range: {
-      min: 0,
-      max: 3
-    },
-    start: 3,
-    step: 0.1,
-  },
-  filter: 'blur',
-  imageClass: 'phobos',
-};
-
-const heat = {
-  sliderSettings : {
-    range: {
-      min: 0,
-      max: 3
-    },
-    start: 3,
-    step: 0.1,
-  },
-  filter: 'brightness',
-  imageClass: 'heat',
-};
-
-const original = {
-  sliderSettings : {
-    range: {
-      min: 0,
-      max: 0
-    },
-    start: 0,
-    step: 0,
-  },
-  filter: '',
-  imageClass: 'none'
-};
-
 let activeFilter;
 
-const effects = [chrome, sepia, marvin, phobos, heat, original];
+const minusButton = document.querySelector('.scale__control--smaller');
+const plusButton = document.querySelector('.scale__control--bigger');
+const imageSizeInput = document.querySelector('.scale__control--value');
+const image = document.querySelector('.img-upload__preview').children[0];
+const scale = document.querySelector('.img-upload__scale');
+
+let sizeValue = imageDefaultSize;
+
+const changeImageSize = function (value) {
+  imageSizeInput.value = `${value}%`;
+  image.style.transform = `scale(${parseInt(imageSizeInput.value, 10) / 100})`;
+};
+
+const onScaleChange = function(event) {
+  if (event.target === plusButton) {
+    sizeValue += imageSizeStep;
+    if (sizeValue > imageDefaultSize) {
+      sizeValue = imageDefaultSize;
+    }
+  } else if (event.target === minusButton) {
+    sizeValue -= imageSizeStep;
+    if (sizeValue < imageSizeStep) {
+      sizeValue = imageSizeStep;
+    }
+  }
+  changeImageSize(sizeValue);
+};
 
 noUiSlider.create(slider, {
   range: {
@@ -109,6 +57,7 @@ function changeEffectDeep (filterName) {
 const onAvatarChange = function (imageSettings) {
   if (imageSettings.imageClass === 'none') {
     sliderBackground.classList.add('hidden');
+    slider.noUiSlider.reset();
     image.className = `effects__preview--${imageSettings.imageClass}`;
     image.style.filter = '';
   } else {
@@ -120,18 +69,23 @@ const onAvatarChange = function (imageSettings) {
 
 };
 
-slider.noUiSlider.on('update', (evt) => {
+slider.noUiSlider.on('update', () => {
   effectLevelInput.value = slider.noUiSlider.get();
   changeEffectDeep(activeFilter);
 });
 
-effectsList.addEventListener('click', (evt) => {
-  for (let i = 0; i < effects.length; i++) {
-    if (evt.target.value === effects[i].imageClass) {
-      onAvatarChange(effects[i]);
-      activeFilter = effects[i].filter;
+const onEffectsChange = function () {
+  effectsList.addEventListener('click', (evt) => {
+    for (let i = 0; i < effects.length; i++) {
+      if (evt.target.value === effects[i].imageClass) {
+        imageSizeInput.value = `${imageDefaultSize}%`;
+        sizeValue = imageDefaultSize;
+        image.style.transform = 'scale(1)';
+        onAvatarChange(effects[i]);
+        activeFilter = effects[i].filter;
+      }
     }
-  }
-});
+  });
+};
 
-export {slider};
+export { sliderBackground, onEffectsChange, image, scale, onScaleChange };

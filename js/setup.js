@@ -33,4 +33,88 @@ const NAMES = [
   'Вашингтон',
 ];
 
-export {NAMES, MESSAGES_ARR, PHOTO_DESCRIPTIONS, MAX_AVATAR_NUMBER, MIN_AVATAR_NUMBER, MAX_LIKES_COUNT, MIN_LIKES_COUNT, PHOTO_ID_COUNT, COMMENT_PER_PORTION};
+const imageSizeStep = 25;
+const imageDefaultSize = 100;
+
+const chrome = {
+  sliderSettings: {
+    range: {
+      min: 0,
+      max: 1
+    },
+    start: 1,
+    step: 0.1,
+  },
+  filter: 'grayscale',
+  imageClass: 'chrome',
+};
+
+const sepia = {
+  sliderSettings: {
+    range: {
+      min: 0,
+      max: 1,
+    },
+    start: 1,
+    step: 0.1,
+  },
+  filter: 'sepia',
+  imageClass: 'sepia',
+};
+
+const marvin = {
+  sliderSettings: {
+    range: {
+      min: 0,
+      max: 100,
+    },
+    start: 100,
+    step: 1,
+  },
+  filter: 'invert',
+  imageClass: 'marvin',
+};
+
+const phobos = {
+  sliderSettings: {
+    range: {
+      min: 0,
+      max: 3
+    },
+    start: 3,
+    step: 0.1,
+  },
+  filter: 'blur',
+  imageClass: 'phobos',
+};
+
+const heat = {
+  sliderSettings : {
+    range: {
+      min: 0,
+      max: 3
+    },
+    start: 3,
+    step: 0.1,
+  },
+  filter: 'brightness',
+  imageClass: 'heat',
+};
+
+const original = {
+  sliderSettings : {
+    range: {
+      min: 0,
+      max: 0
+    },
+    start: 0,
+    step: 0,
+  },
+  filter: '',
+  imageClass: 'none'
+};
+
+const effects = [chrome, sepia, marvin, phobos, heat, original];
+
+export {NAMES, MESSAGES_ARR, PHOTO_DESCRIPTIONS, MAX_AVATAR_NUMBER, MIN_AVATAR_NUMBER,
+  MAX_LIKES_COUNT, MIN_LIKES_COUNT, PHOTO_ID_COUNT, COMMENT_PER_PORTION, effects, imageSizeStep, imageDefaultSize};
