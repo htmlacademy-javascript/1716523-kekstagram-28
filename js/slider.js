@@ -13,27 +13,20 @@ const imageSizeInput = document.querySelector('.scale__control--value');
 const image = document.querySelector('.img-upload__preview').children[0];
 const scale = document.querySelector('.img-upload__scale');
 
-let sizeValue = imageDefaultSize;
-
-const changeImageSize = function (value) {
-  imageSizeInput.value = `${value}%`;
-  image.style.transform = `scale(${parseInt(imageSizeInput.value, 10) / 100})`;
-};
-
-const onScaleChange = function(event) {
-  if (event.target === plusButton) {
-    sizeValue += imageSizeStep;
-    if (sizeValue > imageDefaultSize) {
-      sizeValue = imageDefaultSize;
+scale.addEventListener('click', (evt) => {
+  if (evt.target === plusButton) {
+    imageSizeInput.value = `${parseInt(imageSizeInput.value, 10) + imageSizeStep}%`;
+    if (parseInt(imageSizeInput.value, 10) > imageDefaultSize) {
+      imageSizeInput.value = `${imageDefaultSize}%`;
     }
-  } else if (event.target === minusButton) {
-    sizeValue -= imageSizeStep;
-    if (sizeValue < imageSizeStep) {
-      sizeValue = imageSizeStep;
+  } else if (evt.target === minusButton) {
+    imageSizeInput.value = `${parseInt(imageSizeInput.value, 10) - imageSizeStep}%`;
+    if (parseInt(imageSizeInput.value, 10) < imageSizeStep) {
+      imageSizeInput.value = `${imageSizeStep}%`;
     }
   }
-  changeImageSize(sizeValue);
-};
+  image.style.transform = `scale(${parseInt(imageSizeInput.value, 10) / 100})`;
+});
 
 noUiSlider.create(slider, {
   range: {
@@ -79,8 +72,7 @@ const onEffectsChange = function () {
     for (let i = 0; i < effects.length; i++) {
       if (evt.target.value === effects[i].imageClass) {
         imageSizeInput.value = `${imageDefaultSize}%`;
-        sizeValue = imageDefaultSize;
-        image.style.transform = 'scale(1)';
+        image.style.transform = `scale(${(imageDefaultSize) / 100})`;
         onAvatarChange(effects[i]);
         activeFilter = effects[i].filter;
       }
@@ -88,4 +80,4 @@ const onEffectsChange = function () {
   });
 };
 
-export { sliderBackground, onEffectsChange, image, scale, onScaleChange };
+export { sliderBackground, onEffectsChange, image, scale, imageSizeInput, };
