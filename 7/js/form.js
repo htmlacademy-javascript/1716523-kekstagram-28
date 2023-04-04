@@ -1,6 +1,7 @@
 import { body } from './big-picture-modal-open.js';
 import { isEscapeKey } from './util.js';
-import { sliderBackground, image, scale, onScaleChange } from './slider.js';
+import { sliderBackground, image, imageSizeInput } from './slider.js';
+import { imageDefaultSize } from './setup.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const imageOverlay = document.querySelector('.img-upload__overlay');
@@ -36,20 +37,8 @@ const showImageOverlay = function () {
   imageOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   sliderBackground.classList.add('hidden');
-  scale.addEventListener('click', onScaleChange);
 };
 
-document.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    imageOverlay.classList.add('hidden');
-    body.classList.remove('modal-open');
-    uploadButton.removeEventListener('change', showImageOverlay);
-    form.reset();
-    pristine.reset();
-    scale.removeEventListener('click', onScaleChange);
-  }
-});
 pristine.addValidator(hashTagField, validateTags, ERROR_TEXT);
 
 form.addEventListener('submit', (evt) => {
@@ -66,9 +55,16 @@ const closeImageOverlay = function () {
   uploadButton.removeEventListener('change', showImageOverlay);
   form.reset();
   pristine.reset();
-  scale.removeEventListener('click', onScaleChange);
-  image.style.transform = 'scale(1)';
+  image.style.transform = `scale(${(imageDefaultSize) / 100})`;
+  image.style.filter = 'none';
+  imageSizeInput.value = `${imageDefaultSize}%`;
 };
+
+document.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt)) {
+    closeImageOverlay();
+  }
+});
 
 commentField.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
