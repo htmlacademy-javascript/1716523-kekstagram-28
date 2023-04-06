@@ -28,6 +28,20 @@ function createUniqIdFromGenerator () {
   };
 }
 
+function createListItem(avatar, name, message) {
+  return `<li class="social__comment">
+      <img
+          class="social__picture"
+          src="${avatar}"
+          alt="${name}"
+          width="35" height="35">
+      <p class="social__text">${message}</p>
+  </li>`;
+}
+
 const commentId = createUniqIdFromGenerator();
 
-export {getRandomInteger, photoId, commentId};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, photoId, commentId, isEscapeKey, createListItem};
+
