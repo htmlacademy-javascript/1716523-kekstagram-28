@@ -1,8 +1,4 @@
-import { photoesDescription } from './data.js';
-
-const pictureObjects = photoesDescription();
-
-function addsPicturesTemplates() {
+function addsPicturesTemplates(uploadedPhotoesDescriptions) {
   const picturesContainer = document.querySelector('.pictures');
   const picturesFragment = document.createDocumentFragment();
 
@@ -11,7 +7,7 @@ function addsPicturesTemplates() {
     .content
     .querySelector('.picture');
 
-  pictureObjects.forEach(({url, likes, comments, description, id}) => {
+  uploadedPhotoesDescriptions.forEach(({url, likes, comments, description, id}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__likes').textContent = likes;
@@ -24,4 +20,4 @@ function addsPicturesTemplates() {
   return picturesContainer.append(picturesFragment);
 }
 
-export {addsPicturesTemplates, pictureObjects};
+export {addsPicturesTemplates};

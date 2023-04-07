@@ -1,7 +1,8 @@
 import { body } from './big-picture-modal-open.js';
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, showAlert } from './util.js';
 import { sliderBackground, image, imageSizeInput } from './slider.js';
 import { imageDefaultSize } from './setup.js';
+import { sendData } from './api.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const imageOverlay = document.querySelector('.img-upload__overlay');
@@ -11,7 +12,23 @@ const form = document.querySelector('.img-upload__form');
 const hashTagField = document.querySelector('.text__hashtags');
 const MAX_HASHTAG_QUANTITY = 5;
 const ERROR_TEXT = 'ПОЛЕ ЗАПОЛНЕНО НЕВЕРНО';
+const ERROR_TEXT1 = 'your bunny wrote';
 const hashTagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
+const submitButton = document.querySelector('.img-upload__submit');
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
+
+const blockSubmitButton = () => {
+  submitButton.disable = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unBlockSubmitButton = () => {
+  submitButton.disable = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
 
 const pristine = new Pristine (form, {
   classTo: 'img-upload__field-wrapper',
@@ -33,6 +50,10 @@ function validateTags (value) {
   return isUniqueTags(tags) && tags.length <= MAX_HASHTAG_QUANTITY && tags.every(isValidTag);
 }
 
+function validateCommentField (value) {
+  return value.length <= 140;
+}
+
 const showImageOverlay = function () {
   imageOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -40,13 +61,22 @@ const showImageOverlay = function () {
 };
 
 pristine.addValidator(hashTagField, validateTags, ERROR_TEXT);
+pristine.addValidator(commentField, validateCommentField, ERROR_TEXT1);
 
-form.addEventListener('submit', (evt) => {
-  if (!pristine.validate(hashTagField) || !pristine.validate(commentField)) {
+const setUserFormSubmit = function (onSuccess) {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    evt.stopPropagation();
-  }
-});
+    if (pristine.validate(hashTagField) && pristine.validate(commentField)) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch((err) => {
+          showAlert(err.message);
+        })
+        .finally(unBlockSubmitButton);
+    }
+  });
+};
 
 const closeImageOverlay = function () {
   image.className = 'effects__preview--none';
@@ -85,5 +115,5 @@ const openImageForm = function () {
 };
 
 
-export { openImageForm };
+export { openImageForm, setUserFormSubmit, closeImageOverlay };
 
