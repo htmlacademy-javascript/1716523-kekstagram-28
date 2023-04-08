@@ -1,4 +1,3 @@
-
 import { effects, imageDefaultSize, imageSizeStep } from './setup.js';
 
 const slider = document.querySelector('.effect-level__slider');
