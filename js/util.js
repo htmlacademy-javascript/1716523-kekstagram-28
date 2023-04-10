@@ -1,4 +1,4 @@
-import {PHOTO_ID_COUNT} from './setup.js';
+import {PHOTO_ID_COUNT, ALERT_SHOW_TIME} from './setup.js';
 
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -43,5 +43,26 @@ const commentId = createUniqIdFromGenerator();
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, photoId, commentId, isEscapeKey, createListItem};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {getRandomInteger, photoId, commentId, isEscapeKey, createListItem, showAlert};
 
