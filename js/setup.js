@@ -4,6 +4,7 @@ const MAX_LIKES_COUNT = 200;
 const MIN_AVATAR_NUMBER = 1;
 const MAX_AVATAR_NUMBER = 6;
 const COMMENT_PER_PORTION = 5;
+const ALERT_SHOW_TIME = 5000;
 const PHOTO_DESCRIPTIONS = [
   'я на отдыхе',
   'я на работе',
@@ -117,4 +118,4 @@ const original = {
 const effects = [chrome, sepia, marvin, phobos, heat, original];
 
 export {NAMES, MESSAGES_ARR, PHOTO_DESCRIPTIONS, MAX_AVATAR_NUMBER, MIN_AVATAR_NUMBER,
-  MAX_LIKES_COUNT, MIN_LIKES_COUNT, PHOTO_ID_COUNT, COMMENT_PER_PORTION, effects, imageSizeStep, imageDefaultSize};
+  MAX_LIKES_COUNT, MIN_LIKES_COUNT, PHOTO_ID_COUNT, COMMENT_PER_PORTION, effects, imageSizeStep, imageDefaultSize, ALERT_SHOW_TIME};
