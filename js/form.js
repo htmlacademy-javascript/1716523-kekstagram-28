@@ -19,6 +19,7 @@ const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...'
 };
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const blockSubmitButton = () => {
   submitButton.disable = true;
@@ -58,6 +59,12 @@ const showImageOverlay = function () {
   imageOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   sliderBackground.classList.add('hidden');
+  const file = uploadButton.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    image.src = URL.createObjectURL(file);
+  }
 };
 
 pristine.addValidator(hashTagField, validateTags, ERROR_TEXT);
@@ -113,6 +120,17 @@ closeButton.addEventListener('click', closeImageOverlay);
 const openImageForm = function () {
   uploadButton.addEventListener('input', showImageOverlay);
 };
+
+// fileChooser.addEventListener('change', () => {
+//   const file = fileChooser.files[0];
+//   const fileName = file.name.toLowerCase();
+
+//   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+//   if (matches) {
+//     preview.src = URL.createObjectURL(file);
+//   }
+// });
 
 
 export { openImageForm, setUserFormSubmit, closeImageOverlay };

@@ -4,6 +4,8 @@ import { closeBigPicture, closeBigPictureByKey } from './big-picure-modal-close.
 import { openImageForm, setUserFormSubmit, closeImageOverlay } from './form.js';
 import { onEffectsChange } from './slider.js';
 import { getData } from './api.js';
+import { showFilter, showDefaultPhotoes} from './photoes-filter.js';
+// import { debounce } from './util.js';
 
 closeBigPicture();
 closeBigPictureByKey();
@@ -13,7 +15,14 @@ setUserFormSubmit(closeImageOverlay);
 
 getData()
   .then((photoes) => {
-    addsPicturesTemplates(photoes);
+    addsPicturesTemplates(photoes, showDefaultPhotoes);
+    showFilter(photoes);
     opensBigPictureModal(photoes);
   });
 
+// getData()
+//   .then((photoes) => {
+//     console.log(...photoes);
+//     showFilter(photoes);
+//     opensBigPictureModal(photoes);
+//   });
