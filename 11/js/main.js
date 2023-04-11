@@ -4,6 +4,8 @@ import { closeBigPicture, closeBigPictureByKey } from './big-picure-modal-close.
 import { openImageForm, setUserFormSubmit, closeImageOverlay } from './form.js';
 import { onEffectsChange } from './slider.js';
 import { getData } from './api.js';
+import { showAlert } from './util.js';
+
 
 closeBigPicture();
 closeBigPictureByKey();
@@ -15,5 +17,8 @@ getData()
   .then((photoes) => {
     addsPicturesTemplates(photoes);
     opensBigPictureModal(photoes);
+  })
+  .catch((err) => {
+    showAlert(err.message);
   });
 
