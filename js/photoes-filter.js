@@ -44,5 +44,3 @@ const showFilter = function (descriptions) {
 };
 
 export { showFilter, showDefaultPhotoes };
-
-
