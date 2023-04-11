@@ -1,11 +1,11 @@
 import { addsPicturesTemplates } from './random-user-pictures.js';
-// import { debounce } from './util.js';
+import { debounce } from './util.js';
 
 const filterInterface = document.querySelector('.img-filters');
 const defaultFilterButton = filterInterface.querySelector('#filter-default');
 const randomFilterButton = filterInterface.querySelector('#filter-random');
 const mostCommentedFilterButton = filterInterface.querySelector('#filter-discussed');
-// const RENDER_DELAY = 500;
+const RENDER_DELAY = 500;
 
 const showDefaultPhotoes = function (descriptions) {
   return descriptions;
@@ -21,7 +21,7 @@ const showMostCommentedPhotoes = function (descriptions) {
 
 const showFilter = function (descriptions) {
   filterInterface.classList.remove('img-filters--inactive');
-  filterInterface.addEventListener('click', (evt) => {
+  const onFilterClickHandler = (evt) => {
     if (evt.target === randomFilterButton) {
       mostCommentedFilterButton.classList.remove('img-filters__button--active');
       randomFilterButton.classList.add('img-filters__button--active');
@@ -38,9 +38,11 @@ const showFilter = function (descriptions) {
       randomFilterButton.classList.remove('img-filters__button--active');
       addsPicturesTemplates(descriptions, showDefaultPhotoes);
     }
-  });
+  };
+  const onFilterClickDebouncerHandler = debounce(onFilterClickHandler, RENDER_DELAY);
+  filterInterface.addEventListener('click', onFilterClickDebouncerHandler);
 };
 
-export {showFilter, showDefaultPhotoes};
+export { showFilter, showDefaultPhotoes };
 
 

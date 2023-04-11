@@ -5,9 +5,8 @@ import { openImageForm, setUserFormSubmit, closeImageOverlay } from './form.js';
 import { onEffectsChange } from './slider.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
-
 import { showFilter, showDefaultPhotoes} from './photoes-filter.js';
-// import { debounce } from './util.js';
+
 
 closeBigPicture();
 closeBigPictureByKey();
@@ -24,4 +23,3 @@ getData()
   .catch((err) => {
     showAlert(err.message);
   });
-
