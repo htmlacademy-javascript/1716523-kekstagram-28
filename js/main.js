@@ -5,6 +5,7 @@ import { openImageForm, setUserFormSubmit, closeImageOverlay } from './form.js';
 import { onEffectsChange } from './slider.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
+import { showFilter, showDefaultPhotoes} from './photoes-filter.js';
 
 
 closeBigPicture();
@@ -15,10 +16,10 @@ setUserFormSubmit(closeImageOverlay);
 
 getData()
   .then((photoes) => {
-    addsPicturesTemplates(photoes);
+    addsPicturesTemplates(photoes, showDefaultPhotoes);
+    showFilter(photoes);
     opensBigPictureModal(photoes);
   })
   .catch((err) => {
     showAlert(err.message);
   });
-
