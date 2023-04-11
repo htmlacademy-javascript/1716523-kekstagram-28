@@ -42,7 +42,7 @@ function opensBigPictureModal(descriptions) {
   });
 }
 
-function getCommentsQuantity (commentsLength) {
+function getCommentsQuantity(commentsLength) {
   if (commentsLength >= COMMENT_PER_PORTION) {
     return `${socialCommentList.children.length} из ${commentsLength} комментариев`;
   }
@@ -56,11 +56,11 @@ function renderComments() {
   }
   if (comments.length <= COMMENT_PER_PORTION) {
     commentLoader.classList.add('hidden');
-    for (let i = 0; i < comments.length; i++){
+    for (let i = 0; i < comments.length; i++) {
       commentsToLoad += listItems[i];
     }
   } else {
-    for (let i = 0; i < COMMENT_PER_PORTION; i++){
+    for (let i = 0; i < COMMENT_PER_PORTION; i++) {
       commentsToLoad += listItems[i];
     }
   }
@@ -68,7 +68,7 @@ function renderComments() {
   socialCommentsCount.textContent = getCommentsQuantity(comments.length);
 }
 
-function onLoadMoreClick(){
+function onLoadMoreClick() {
   const loadedComments = comments.slice(socialCommentList.children.length, socialCommentList.children.length + 5)
     .map(({ avatar, message, name }) => createListItem(avatar, name, message)).reduce((prev, cur) => prev + cur, '');
   socialCommentList.insertAdjacentHTML('beforeend', loadedComments);
@@ -78,8 +78,8 @@ function onLoadMoreClick(){
   }
 }
 
-function initCommentLoader () {
+function initCommentLoader() {
   commentLoader.addEventListener('click', onLoadMoreClick);
 }
 
-export { opensBigPictureModal, bigPictureModal, body, onLoadMoreClick, commentLoader};
+export { opensBigPictureModal, bigPictureModal, body, onLoadMoreClick, commentLoader };
