@@ -34,18 +34,6 @@ function getNumber(stringOrNumber) {
 
 getNumber('2023 год');
 
-// тернарный оператор
-// function getNumber2(stringOrNumber) {
-//   const numbers = [];
-//   const result = stringOrNumber.toString().replaceAll(' ','').split('');
-//   for (let i = 0; i < result.length; i++) {
-//     !isNaN(result[i]) && numbers.push(result[i]);
-//   }
-//   return numbers.length ? parseInt(numbers.join(''), 10) : NaN;
-// }
-
-// getNumber2('2023 год');
-
 function addCharToString (someString, charLimit, charToAdd) {
   let newStr;
   if (someString.length < charLimit) {
