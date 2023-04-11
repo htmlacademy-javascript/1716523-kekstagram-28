@@ -5,6 +5,7 @@ const filterInterface = document.querySelector('.img-filters');
 const defaultFilterButton = filterInterface.querySelector('#filter-default');
 const randomFilterButton = filterInterface.querySelector('#filter-random');
 const mostCommentedFilterButton = filterInterface.querySelector('#filter-discussed');
+// const RENDER_DELAY = 500;
 
 const showDefaultPhotoes = function (descriptions) {
   return descriptions;
@@ -40,6 +41,6 @@ const showFilter = function (descriptions) {
   });
 };
 
-export {showFilter, showRandomPhotoes, showMostCommentedPhotoes, showDefaultPhotoes};
+export {showFilter, showDefaultPhotoes};
 
 

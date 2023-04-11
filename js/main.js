@@ -25,9 +25,3 @@ getData()
     showAlert(err.message);
   });
 
-// getData()
-//   .then((photoes) => {
-//     console.log(...photoes);
-//     showFilter(photoes);
-//     opensBigPictureModal(photoes);
-//   });
