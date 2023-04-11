@@ -1,5 +1,5 @@
 import { addsPicturesTemplates } from './random-user-pictures.js';
-import { debounce } from './util.js';
+// import { debounce } from './util.js';
 
 const filterInterface = document.querySelector('.img-filters');
 const defaultFilterButton = filterInterface.querySelector('#filter-default');
