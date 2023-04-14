@@ -1,7 +1,7 @@
 import { addsPicturesTemplates } from './random-user-pictures.js';
 import { opensBigPictureModal } from './big-picture-modal-open.js';
 import { closeBigPicture, closeBigPictureByKey } from './big-picure-modal-close.js';
-import { openImageForm, setUserFormSubmit, closeImageOverlay } from './form.js';
+import { openImageForm, setUserFormSubmit, closeImageOverlay, createSuccessModal, createErrorModal } from './form.js';
 import { onEffectsChange } from './slider.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
@@ -13,6 +13,8 @@ closeBigPictureByKey();
 openImageForm();
 onEffectsChange();
 setUserFormSubmit(closeImageOverlay);
+createSuccessModal();
+createErrorModal();
 
 getData()
   .then((photoes) => {
@@ -23,3 +25,4 @@ getData()
   .catch((err) => {
     showAlert(err.message);
   });
+
