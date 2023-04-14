@@ -18,7 +18,6 @@ const listItems = [];
 let comments = [];
 
 function opensBigPictureModal(descriptions) {
-  listItems.length = 0;
   picturesContainer.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('picture__img')) {
       const pictures = descriptions.find((item) => item.id === +evt.target.parentNode.dataset.pictureElementId);
@@ -34,6 +33,7 @@ function opensBigPictureModal(descriptions) {
       }
 
       comments = pictures.comments;
+      listItems.length = 0;
       renderComments();
       initCommentLoader();
       bigPictureModal.classList.remove('hidden');
@@ -69,11 +69,11 @@ function renderComments() {
 }
 
 function onLoadMoreClick() {
-  const loadedComments = comments.slice(socialCommentList.children.length, socialCommentList.children.length + 5)
-    .map(({ avatar, message, name }) => createListItem(avatar, name, message)).reduce((prev, cur) => prev + cur, '');
+  const loadedComments = listItems.slice(socialCommentList.children.length, socialCommentList.children.length + 5)
+    .reduce((prev, cur) => prev + cur, '');
   socialCommentList.insertAdjacentHTML('beforeend', loadedComments);
-  socialCommentsCount.textContent = getCommentsQuantity(comments.length);
-  if (socialCommentList.children.length >= comments.length) {
+  socialCommentsCount.textContent = getCommentsQuantity(listItems.length);
+  if (socialCommentList.children.length >= listItems.length) {
     commentLoader.classList.add('hidden');
   }
 }

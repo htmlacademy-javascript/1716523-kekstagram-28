@@ -21,6 +21,7 @@ const SubmitButtonText = {
 };
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const smallPhotoes = document.querySelectorAll('.effects__preview');
+
 const successTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');
@@ -65,6 +66,19 @@ const createErrorModal = () => {
   hideErrorElement();
 };
 
+const closeModalByKey = () => {
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt) && !errorElement.classList.contains('hidden')) {
+      evt.preventDefault();
+      hideErrorElement();
+      evt.stopImmediatePropagation();
+    } else if (isEscapeKey(evt) && errorElement.classList.contains('hidden')) {
+      evt.preventDefault();
+      closeImageOverlay();
+    }
+  });
+};
+
 const showErrorModal = () => {
   errorElement.classList.remove('hidden');
   errorButton.addEventListener('click', hideErrorElement);
@@ -73,12 +87,7 @@ const showErrorModal = () => {
       hideErrorElement();
     }
   });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      hideErrorElement();
-    }
-  });
+  closeModalByKey();
 };
 
 const blockSubmitButton = () => {
@@ -106,22 +115,15 @@ const isValidTag = function (tag) {
   return hashTagRegExp.test(tag);
 };
 
-function validateTags (value) {
+const validateTags = function (value) {
   const tags = value.trim().split(' ').filter((tag) => tag.trim().length);
   return isUniqueTags(tags) && tags.length <= MAX_HASHTAG_QUANTITY && tags.every(isValidTag);
-}
+};
 
 const validateCommentField = function (value) {
   return value.length <= 140;
 };
 
-const onCloseImageOverlay = () => {
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      closeImageOverlay();
-    }
-  });
-};
 function closeImageOverlay () {
   image.className = 'effects__preview--none';
   imageOverlay.classList.add('hidden');
@@ -135,7 +137,7 @@ function closeImageOverlay () {
 }
 
 function showImageOverlay () {
-  onCloseImageOverlay();
+  closeModalByKey();
   const file = uploadButton.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -163,7 +165,6 @@ const setUserFormSubmit = function (onSuccess) {
         .then(onSuccess)
         .catch(() => {
           showErrorModal();
-          // showAlert(err.message);
         })
         .finally(unBlockSubmitButton);
     }
