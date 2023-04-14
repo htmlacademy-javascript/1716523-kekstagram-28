@@ -33,7 +33,6 @@ const hideSuccessElement = () => {
 const createSuccessModal = () => {
   document.body.append(successElement);
   hideSuccessElement();
-  console.log(successElement);
 };
 
 const showSuccessModal = () => {
@@ -64,7 +63,6 @@ const hideErrorElement = () => {
 const createErrorModal = () => {
   document.body.append(errorElement);
   hideErrorElement();
-  console.log(errorElement);
 };
 
 const showErrorModal = () => {
