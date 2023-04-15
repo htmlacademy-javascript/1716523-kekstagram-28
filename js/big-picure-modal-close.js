@@ -3,17 +3,17 @@ import { isEscapeKey } from './util.js';
 
 const bigPictureCloseButton = bigPictureModal.querySelector('.big-picture__cancel');
 
-const onClose = () => {
+const closeBigPicture = () => {
   bigPictureModal.classList.add('hidden');
   body.classList.remove('modal-open');
   commentLoader.removeEventListener('click', onLoadMoreClick);
 };
 
-function closeBigPicture() {
-  bigPictureCloseButton.addEventListener('click', onClose);
+function onCloseBigPicture() {
+  bigPictureCloseButton.addEventListener('click', closeBigPicture);
 }
 
-bigPictureCloseButton.removeEventListener('click', onClose);
+bigPictureCloseButton.removeEventListener('click', closeBigPicture);
 
 function closeBigPictureByKey() {
   document.addEventListener('keydown', (evt) => {
@@ -25,5 +25,5 @@ function closeBigPictureByKey() {
   });
 }
 
-export { closeBigPicture, closeBigPictureByKey };
+export { onCloseBigPicture, closeBigPictureByKey };
 
